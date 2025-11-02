@@ -1,0 +1,101 @@
+---
+const navLinks = [
+  { title: "Catering", href: "/catering" },
+  { title: "Take Away", href: "/take-away" }
+];
+---
+
+<nav class="fixed top-0 left-0 w-full z-50 bg-black backdrop-blur-sm">
+  <div class="flex items-center justify-between px-4 py-6">
+    <div class="text-lg font-extrabold text-white animate-slide-down">
+      <a href="/">Mat3am</a>
+    </div>
+
+    <!-- Desktop Links -->
+    <div class="hidden lg:flex space-x-12 items-center">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class="relative text-white hover:after:w-full after:content-[''] 
+                 after:absolute after:bottom-0 after:left-0 after:w-0 text-xl
+                 font-bold after:h-0.5 after:bg-white after:transition-all 
+                 after:duration-300"
+        >
+          {link.title}
+        </a>
+      ))}
+      <a href="/contact">
+        <button
+          class="px-6 py-2 border rounded text-white bg-palette-4 
+                 border-palette-4 hover:bg-opacity-80 transition"
+        >
+          Kontakta Oss
+        </button>
+      </a>
+    </div>
+
+    <!-- Burger Button -->
+    <button id="burger" class="lg:hidden text-white">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 8H13.75M5 12H19M10.25 16L19 16" stroke="currentColor"
+          stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu"
+    class="fixed top-0 left-0 w-screen h-0 opacity-0 overflow-hidden 
+           bg-black/80 backdrop-blur-xl flex flex-col items-center 
+           justify-center transition-all duration-300"
+  >
+    {navLinks.map(link => (
+      <a
+        href={link.href}
+        class="text-white text-xl my-6 hover:underline"
+      >
+        {link.title}
+      </a>
+    ))}
+    <a href="/contact">
+      <button
+        class="px-6 py-2 border rounded text-white bg-palette-4 
+            border-palette-4 hover:bg-opacity-80 transition my-6">
+        Kontakta Oss
+      </button>
+    </a>
+  </div>
+
+  <style>
+    @keyframes slideDown {
+      from { transform: translateY(-50%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .animate-slide-down {
+      animation: slideDown 0.3s ease-out forwards;
+    }
+  </style>
+
+  <script type="module">
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    const toggleMenu = () => {
+      const isOpen = mobileMenu.classList.contains('h-screen');
+      mobileMenu.classList.toggle('h-screen', !isOpen);
+      mobileMenu.classList.toggle('opacity-100', !isOpen);
+      mobileMenu.classList.toggle('h-0', isOpen);
+      mobileMenu.classList.toggle('opacity-0', isOpen);
+    };
+
+    burger.addEventListener('click', toggleMenu);
+
+      mobileMenu.addEventListener('click', () => {
+        mobileMenu.classList.remove('h-screen', 'opacity-100');
+        mobileMenu.classList.add('h-0', 'opacity-0');
+      });
+  </script>
+</nav>
+

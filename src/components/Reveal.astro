@@ -1,0 +1,34 @@
+---
+interface Props {
+    class?: string;
+    delayClass?: string; // e.g. "delay-200"
+}
+
+const { class: className = "", delayClass = "" } = Astro.props as Props;
+---
+
+<div class={`reveal ${delayClass} ${className}`}><slot /></div>
+
+<style>
+    .reveal { opacity: 0; transform: translateY(14px); }
+    .reveal.reveal-in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; }
+    }
+    /* Allow Tailwind delay utilities via class binding */
+</style>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-in');
+                observer.unobserve(entry.target);
+            }
+        }
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
+
+

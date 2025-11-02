@@ -1,0 +1,44 @@
+---
+import Layout from "../layout/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Reveal from "../components/Reveal.astro";
+import MenuSection from "../components/MenuSection.astro";
+---
+
+<Layout>
+    <Hero imageSrc="/img2.jpg" title="Beställ Take Away" subtitle="Ring så förbereder vi din beställning för upphämtning.">
+        <a href="tel:+46701234567" class="px-6 py-3 rounded bg-palette-3 text-black font-semibold hover:brightness-95 transition">
+            Ring: +46 70 123 45 67
+        </a>
+    </Hero>
+
+    <!-- Menu -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+        <Reveal>
+            <h2 class="text-3xl md:text-4xl font-bold text-palette-1 text-center">Meny</h2>
+        </Reveal>
+
+        <div class="mt-12 grid lg:grid-cols-3 gap-8">
+            <MenuSection title="Förrätter" items={[
+                { name: 'Hummus med olivolja', description: 'Serveras med nybakat bröd', price: '65 kr' },
+                { name: 'Tabbouleh', description: 'Persilja, bulgur, tomat, citron', price: '75 kr' },
+            ]} />
+
+            <MenuSection delayClass="delay-150" title="Varmrätter" items={[
+                { name: 'Kyckling shawarma-tallrik', description: 'Med ris/sallad, vitlökssås & pickles', price: '135 kr' },
+                { name: 'Falafel-rulle', description: 'Hummus, tahini, grönsaker, pickles', price: '95 kr' },
+                { name: 'Grillad halloumi-sallad', description: 'Krispiga grönsaker, örtdressing', price: '115 kr' },
+            ]} />
+
+            <MenuSection delayClass="delay-300" title="Tillbehör & Dryck" items={[
+                { name: 'Pommes frites', description: 'Krispiga, serveras med dip', price: '45 kr' },
+                { name: 'Vitlökssås / Tahini', description: 'Liten burk vid sidan', price: '15 kr' },
+                { name: 'Läsk / Mineralvatten', price: '25 kr' },
+            ]} />
+        </div>
+
+        <p class="mt-10 text-center text-gray-600 reveal">Informera oss om allergier.</p>
+    </section>
+
+    
+</Layout>
