@@ -20,6 +20,8 @@ services:
   mazzahouse:
     image: node:20-alpine
     working_dir: /app
+    env_file:
+      - .env
     volumes:
       - /home/jonathan/mahrous-website:/app
     command: >
