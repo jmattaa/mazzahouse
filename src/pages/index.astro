@@ -63,12 +63,22 @@ import FeatureCard from "../components/FeatureCard.astro";
 </section>
 
 <!-- Parallax banner -->
-<section class="relative my-20 h-[40vh] md:h-[50vh]">
-    <div class="absolute inset-0" style="background-image:url('/img5.png'); background-size:cover; background-position:center; background-attachment:fixed;"></div>
+<section class="relative my-20 h-[50vh] overflow-hidden">
+    <div class="parallax absolute inset-0">
+        <img 
+            src="/img5.png" 
+            class="w-full h-full object-cover"
+            alt=""
+        />
+    </div>
+
     <div class="absolute inset-0 bg-black/40"></div>
+
     <div class="relative z-10 h-full flex items-center justify-center">
         <Reveal>
-        <p class="text-center text-white text-2xl md:text-3xl font-semibold">Mat lagad med passion, serverad med omtanke.</p>
+            <p class="text-center text-white text-2xl md:text-3xl font-semibold">
+                Mat lagad med passion, serverad med omtanke.
+            </p>
         </Reveal>
     </div>
 </section>
@@ -132,4 +142,67 @@ import FeatureCard from "../components/FeatureCard.astro";
 
 
 </Layout>
+
+
+<style>
+    .parallax img {
+        will-change: transform;
+        transform: translateY(0);
+        height: 150%;
+        top: -110%;
+        position: absolute;
+    }
+
+    /* trial and error 😭 */
+    @media (max-width: 1012px) {
+        .parallax img {
+            top: -130%;
+            height: 140%;
+        }
+    }
+    /* trial and error 😭 */
+    @media (max-width: 911px) {
+        .parallax img {
+            top: -160%;
+            height: 160%;
+        }
+    }
+    /* trial and error 😭 */
+    @media (max-width: 767px) {
+        .parallax img {
+            top: -180%;
+            height: 160%;
+        }
+    }
+    /* trial and error 😭 */
+    @media (max-width: 634px) {
+        .parallax img {
+            top: -220%;
+            height: 200%;
+        }
+    }
+</style>
+
+<script is:inline>
+document.addEventListener("DOMContentLoaded", () => {
+    const parallax = document.querySelector(".parallax img");
+
+    let lastScroll = 0;
+
+    function animateParallax() {
+        const scrollY = window.scrollY;
+        const speed = 0.2;
+
+        if (scrollY !== lastScroll) {
+            const offset = scrollY * speed;
+            parallax.style.transform = `translateY(${offset}px)`;
+            lastScroll = scrollY;
+        }
+
+        requestAnimationFrame(animateParallax);
+    }
+
+    requestAnimationFrame(animateParallax);
+});
+</script>
 
